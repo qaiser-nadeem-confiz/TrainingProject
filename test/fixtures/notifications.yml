@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  userProfileId: 1
+  notificationMessage: MyText
+  isViewed: false
+  notificationDateTime: 2014-07-21 15:36:15
+  UserProfile: 
+
+two:
+  userProfileId: 1
+  notificationMessage: MyText
+  isViewed: false
+  notificationDateTime: 2014-07-21 15:36:15
+  UserProfile: 

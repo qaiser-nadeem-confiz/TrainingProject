@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  userId: 1
+  friendsWithId: 1
+  requestAccepted: false
+  dateOfFriendShip: 2014-07-21
+
+two:
+  userId: 1
+  friendsWithId: 1
+  requestAccepted: false
+  dateOfFriendShip: 2014-07-21

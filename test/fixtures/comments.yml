@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  commentedBy: 1
+  commentText: MyText
+  commentType: MyString
+  commentTimeDate: 2014-07-21 15:29:16
+  UserProfile: 
+
+two:
+  commentedBy: 1
+  commentText: MyText
+  commentType: MyString
+  commentTimeDate: 2014-07-21 15:29:16
+  UserProfile: 

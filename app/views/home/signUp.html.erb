@@ -1,0 +1,46 @@
+<%= form_for @account, url: {action: "authorise"} do |account| %>
+    <% if @account.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@account.errors.count, "error") %> prohibited
+            Could not Sign Up:</h2>
+          <ul>
+            <% @account.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+
+
+
+    <% end %>
+
+<h2>
+
+  <%= label_tag('',flash[:errorMessage],:style => 'color:red') %>
+
+</h2>
+
+    <p>
+      <%= account.label :'User Name' %><br>
+      <%= account.text_field :userName %>
+    </p>
+
+    <p>
+      <%= account.label :'Email Id' %><br>
+      <%= account.text_field :emailId %>
+    </p>
+
+    <p>
+      <%= account.label :'password' %><br>
+      <%= password_field :account ,"password" %>
+    </p>
+
+
+    <p>
+      <%= account.label :'Confirm Password' %><br>
+      <%= password_field :temp ,"password2" %>
+    </p>
+    <p>
+      <%= account.submit("Sign Up") %>
+    </p>
+<% end %>
