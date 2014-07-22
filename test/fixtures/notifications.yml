@@ -4,12 +4,16 @@ one:
   userProfileId: 1
   notificationMessage: MyText
   isViewed: false
-  notificationDateTime: 2014-07-21 15:36:15
-  UserProfile: 
+  notificationDateTime: 2014-07-22 17:26:55
+  controllerName: MyString
+  actionName: MyString
+  user_profile: 
 
 two:
   userProfileId: 1
   notificationMessage: MyText
   isViewed: false
-  notificationDateTime: 2014-07-21 15:36:15
-  UserProfile: 
+  notificationDateTime: 2014-07-22 17:26:55
+  controllerName: MyString
+  actionName: MyString
+  user_profile: 

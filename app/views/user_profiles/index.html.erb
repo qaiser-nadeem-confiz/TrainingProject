@@ -1,0 +1,32 @@
+<%= link_to "Edit Profile" ,new_user_profile_path %>
+<%= link_to "Show Profile" ,user_profile_path(session[:userName]) %>
+<%= render 'home/messageView' %>
+<h1>Welcome To Profile View</h1>
+
+
+<% if(@profiles.length >0)  %>
+    <table>
+
+      <col width="10">
+      <col width="150">
+      <col width="270">
+      <col width="80">
+      <tr>
+        <th>Sr.#</th>
+        <th>Name</th>
+        <th>Email Id</th>
+        <th>Joined Since</th>
+      </tr>
+      <% counter=0%>
+      <% @profiles.each do |profile| %>
+          <tr>
+            <td> <%= counter+=1%></td>
+            <td><%= profile.firstName+" "+ profile.secondName %></td>
+            <td><%= profile.emailId %></td>
+            <td><%= profile.dateOfJoining.to_date %></td>
+            <td><%= link_to "Show" , user_profile_path(profile.userName) %>   </td>
+          </tr>
+      <% end %>
+    </table>
+
+<% end%>

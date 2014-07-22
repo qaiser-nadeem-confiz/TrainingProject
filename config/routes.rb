@@ -1,9 +1,13 @@
 SocialMesh::Application.routes.draw do
+
+  get 'user_profiles/edit' => 'user_profiles#edit'
   get "home/index"
-
-  get '/signup' =>'Home#signUp'
-  post '/signup'=>'Home#authorise'
-
+  get '/logout' =>'home#logout'
+  get '/signup' =>'home#signUp'
+  post '/signup'=>'home#authorise'
+  get '/login' =>'home#login'
+  post '/login' =>'home#handleLogin'
+  #get '/user_profiles/:id' =>'user_profiles#edit'
 
   resources :accounts do
     resources :comments

@@ -1,0 +1,100 @@
+<%= form_for @user_profile,:html =>{ multipart:true} do |profile| %>
+    <% if @user_profile.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user_profile.errors.count, "error") %> prohibited
+            this Profile from being saved:</h2>
+          <ul>
+            <% @user_profile.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= render 'home/messageView' %>
+    <h1>Profile Management</h1>
+    <table>
+
+      <tr> <td>
+        <%= profile.label :'First Name' %>
+      </td>
+        <td>
+          <%= profile.text_field :firstName %>
+        </td>
+        <td>
+
+          <%=
+              if @user_profile.pictureUrl
+              image_tag(@user_profile.pictureUrl,:html =>{:width =>20, :height => 20})
+          end%>
+
+
+
+        </td>
+      </tr>
+
+      <tr> <td>
+        <%= profile.label :'Second Name' %>
+      </td>
+        <td>
+          <%=profile.text_field :secondName %>
+        </td> </tr>
+
+
+
+      <tr>
+        <td>
+          <%=profile.label :Address %>
+        </td>
+        <td>
+          <%= profile.text_area :address, size: "29x6" %>
+        </td></tr>
+
+
+
+      <tr><td>
+        <%= profile.label :Education %>
+      </td>
+        <td>
+          <%=profile.text_field :education %>
+        </td></tr>
+
+
+      <tr><td>
+        <%= profile.label :'Phone Number' %>
+      </td>
+        <td>
+          <%=profile.text_field :phoneNumber %>
+        </td></tr><tr>
+      <td>
+        <%= profile.label :'Date of Birth' %>
+      </td>
+      <td>
+        <%=profile.date_select :dateOfBirth ,:start_year =>1900 , :end_year =>Date.current.year%>
+    </tr><tr>
+      <td>
+        <%= profile.label :'About Me' %>
+      </td>
+      <td>
+        <%=profile.text_area :aboutMe ,size: "29x6"%>
+      </td>
+    </tr>
+
+      <tr>
+        <td>
+
+          <%= label('file','Photo') %>
+        </td>
+
+        <td>
+
+          <%= file_field_tag('file',value:'Choose Photo',:accept =>"image/*") %>
+        </td>
+      </tr>
+
+      <tr><td></td><td>
+        <%=profile.submit("Save Informations") %>
+      </tr>
+    </table>
+
+<% end%>

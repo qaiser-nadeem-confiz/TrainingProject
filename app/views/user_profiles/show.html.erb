@@ -1,0 +1,70 @@
+<%= render 'home/messageView' %>
+<h1><%=@profile.userName %></h1>
+
+<strong>
+<table>
+
+  <tr> <td>
+    <%=  :'First Name' %>
+  </td>
+    <td>
+      <%= @profile.firstName%>
+    </td>
+    <td>
+
+      <%=
+          if @profile.pictureUrl
+            image_tag(@profile.pictureUrl,:html =>{:width =>20, :height => 20})
+       end%>
+
+    </td>
+  </tr>
+
+  <tr> <td>
+    <%=  :'Second Name' %>
+  </td>
+    <td>
+      <%=@profile.secondName%>
+    </td> </tr>
+
+  <tr>
+    <td>
+      <%= :From %>
+    </td>
+    <td>
+      <%= @profile.address%>
+    </td></tr>
+
+
+
+  <tr><td>
+    <%=  :Education %>
+  </td>
+    <td>
+      <%=@profile.education%>
+    </td></tr>
+
+
+  <tr><td>
+    <%=  :'Phone Number' %>
+  </td>
+    <td>
+      <%=@profile.phoneNumber %>
+    </td></tr><tr>
+  <td>
+    <%=  :'Date of Birth' %>
+  </td>
+  <td>
+    <%=@profile.dateOfBirth%>
+</tr><tr>
+  <td>
+    <%=  :'About Me' %>
+  </td>
+  <td>
+    <%=@profile.aboutMe%>
+  </td>
+</tr>
+
+</table>
+  </strong>
+<%= render @profile.comments%>

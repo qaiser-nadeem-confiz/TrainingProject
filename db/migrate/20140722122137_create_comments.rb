@@ -5,10 +5,10 @@ class CreateComments < ActiveRecord::Migration
       t.text :commentText
       t.string :commentType
       t.datetime :commentTimeDate
-      t.references :UserProfile
+      t.references :user_profile
 
       t.timestamps
     end
-    add_index :comments, :UserProfile_id
+    add_index :comments, :user_profile_id
   end
 end

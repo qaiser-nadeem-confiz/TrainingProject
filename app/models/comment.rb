@@ -1,3 +1,3 @@
 class Comment < ActiveRecord::Base
-  belongs_to :UserProfile
+  belongs_to :user_profile
 end

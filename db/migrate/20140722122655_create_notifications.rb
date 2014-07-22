@@ -5,10 +5,11 @@ class CreateNotifications < ActiveRecord::Migration
       t.text :notificationMessage
       t.boolean :isViewed
       t.datetime :notificationDateTime
-      t.references :UserProfile
-
+      t.string :controllerName
+      t.string :actionName
+      t.references :user_profile
       t.timestamps
     end
-    add_index :notifications, :UserProfile_id
+    add_index :notifications, :user_profile_id
   end
 end

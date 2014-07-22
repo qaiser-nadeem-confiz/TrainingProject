@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140721103615) do
+ActiveRecord::Schema.define(:version => 20140722122655) do
+
+  create_table "account_model_views", :force => true do |t|
+    t.string   "userName"
+    t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "accounts", :force => true do |t|
     t.string   "emailId"
@@ -26,12 +33,12 @@ ActiveRecord::Schema.define(:version => 20140721103615) do
     t.text     "commentText"
     t.string   "commentType"
     t.datetime "commentTimeDate"
-    t.integer  "UserProfile_id"
+    t.integer  "user_profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["UserProfile_id"], :name => "index_comments_on_UserProfile_id"
+  add_index "comments", ["user_profile_id"], :name => "index_comments_on_user_profile_id"
 
   create_table "friend_lists", :force => true do |t|
     t.integer  "userId"
@@ -47,12 +54,14 @@ ActiveRecord::Schema.define(:version => 20140721103615) do
     t.text     "notificationMessage"
     t.boolean  "isViewed"
     t.datetime "notificationDateTime"
-    t.integer  "UserProfile_id"
+    t.string   "controllerName"
+    t.string   "actionName"
+    t.integer  "user_profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "notifications", ["UserProfile_id"], :name => "index_notifications_on_UserProfile_id"
+  add_index "notifications", ["user_profile_id"], :name => "index_notifications_on_user_profile_id"
 
   create_table "user_profiles", :force => true do |t|
     t.string   "emailId"
