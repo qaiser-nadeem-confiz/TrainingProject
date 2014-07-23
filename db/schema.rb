@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140722122655) do
+ActiveRecord::Schema.define(:version => 20140723084255) do
 
   create_table "account_model_views", :force => true do |t|
     t.string   "userName"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(:version => 20140722122655) do
     t.integer  "friendsWithId"
     t.boolean  "requestAccepted"
     t.date     "dateOfFriendShip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friend_requests", :force => true do |t|
+    t.string   "requestFrom"
+    t.string   "requestTo"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

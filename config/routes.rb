@@ -1,15 +1,18 @@
 SocialMesh::Application.routes.draw do
 
+
   get 'user_profiles/edit' => 'user_profiles#edit'
   get "home/index"
+  get "friend_request/sendRequest/"
   get '/logout' =>'home#logout'
   get '/signup' =>'home#signUp'
   post '/signup'=>'home#authorise'
   get '/login' =>'home#login'
   post '/login' =>'home#handleLogin'
-  get '/userProfiles/sendRequest/:id' => 'friend_request#sendRequest'
-  #get '/user_profiles/:id' =>'user_profiles#edit'
 
+  #get '/friend_request/:id' => 'friend_request#sendRequest'
+  #get '/user_profiles/:id' =>'user_profiles#edit'
+  resource :friend_request
   resources :accounts
   resources :friend_lists
   resources :user_profiles do

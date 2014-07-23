@@ -9,12 +9,32 @@ before_filter :'require_login'
   end
   def index
     @profiles=UserProfile.all
+    @profile=getProfile
+  end
+def sendRequest
+  @friendRequest=  FriendRequest.new
+  @sender=getProfile
+  @requestTo =getProfileByUserName params[:id]
+
+  if @friendRequest.alreadyFriend? @sender , @requestTo
+    flash[:errorMessage]="Request Already sent"
+  elsif @friendRequest.requestAlreadySent? @sender , @requestTo
+    flash[:errorMessage]="You Are Already Friends"
   end
 
+  if getProfileByUserName @requestTo
+    @friendRequest.requestFrom=@sender.userName
+    @friendRequest.requestTo=@requestTo.userName
+    @friendRequest.save
+  else flash[:errorMessage]=@requestTo + " Was not found"
+  end
+  redirect_to user_profile_path
+end
 
 def edit
   if profileAlreadyExists?
     @user_profile=   getProfile
+
     else redirect_to action: new
    end
 end
@@ -23,7 +43,7 @@ def update
 @user_profile =getProfile
 if(@user_profile.update_attributes(params[:user_profile]))
   if(params[:file])
-    @user_profile.update_attribute 'pictureUrl' ,getPictureUrl(params[:file])
+    @user_profile.update_attribute 'pictureUrl' ,@user_profile.getPictureUrl(params[:file])
   end
   flash[:message] ="Profile Upated Successfully"
   redirect_to action: 'index' ,controller: 'user_profiles'
@@ -34,9 +54,9 @@ end
 end
   def create
     @user_profile=UserProfile.new(params[:user_profile])
-    @user_profile=initializeProfile @user_profile , params[:file]
+    @user_profile.initializeAttributess getEmail,getUserName , params[:file]
     if(@user_profile.valid? and params[:file]  and @user_profile.save)
-      savePhoto params[:file]
+      @user_profile.savePhoto params[:file]
       flash[:message]="Profile Updated Successfully"
       redirect_to action: 'index'
     elsif(params[:file].nil?)
@@ -63,42 +83,7 @@ def show
 end
 
 
-private
-def initializeProfile (userProfile,file)
-  userProfile=userProfile
-  userProfile.accountType='normal'
-  userProfile.dateOfJoining=Date.today
-  userProfile.emailId=getEmail
-  userProfile.isActive=true
-  userProfile.userName=getUserName
-  if(file)
-    userProfile.pictureUrl=getPictureUrl file
-  end
-  return userProfile
-end
 
 
-private
-def getPictureUrl file
-  handleDirectoryMaking+file.original_filename
-end
-
-private
-
-def savePhoto(file)
-  uploaded_file = file
-  folder=handleDirectoryMaking
-  File.open(folder+uploaded_file.original_filename, 'wb') do |file|
-    file.write(uploaded_file.read)
-  end
-end
-
-private
-
-def handleDirectoryMaking
-  dir = File.dirname("#{Rails.root}/public/Users/Photoes/temp")
-  FileUtils.mkdir_p(dir+"/"+getEmail)
-  return dir+'/'+getEmail+"/"
-  end
 end
 

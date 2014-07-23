@@ -25,6 +25,16 @@
             <td><%= profile.emailId %></td>
             <td><%= profile.dateOfJoining.to_date %></td>
             <td><%= link_to "Show" , user_profile_path(profile.userName) %>   </td>
+            <td><%=
+            if alreadyFriend? @profile.id ,profile.id
+              link_to "Un Friend"  , friend_list_path(profile.userName) ,method: :delete,  data: { confirm: 'Are you sure?' }
+            elsif requestAlreadySent? @profile , profile
+              "Already Sent!"
+            else
+              link_to "Send Friend Request " ,controller:'friend_request' , action: 'sendRequest' , id:profile.userName
+            end
+            %>   </td>
+
           </tr>
       <% end %>
     </table>

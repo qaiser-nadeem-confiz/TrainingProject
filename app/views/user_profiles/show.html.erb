@@ -1,6 +1,19 @@
 <%= render 'home/messageView' %>
+<table>
+<tr> <td>
 <h1><%=@profile.userName %></h1>
+</td>
+  <td width="50"></td>
+<td>
 
+  <%=
+      if @profile.pictureUrl
+        image_tag(@profile.pictureUrl,width: 100,height: 100)
+      end%>
+
+</td>  </tr>
+
+</table>
 <strong>
 <table>
 
@@ -10,14 +23,7 @@
     <td>
       <%= @profile.firstName%>
     </td>
-    <td>
 
-      <%=
-          if @profile.pictureUrl
-            image_tag(@profile.pictureUrl,:html =>{:width =>20, :height => 20})
-       end%>
-
-    </td>
   </tr>
 
   <tr> <td>
