@@ -6,7 +6,6 @@ class CreateComments < ActiveRecord::Migration
       t.string :commentType
       t.datetime :commentTimeDate
       t.references :user_profile
-
       t.timestamps
     end
     add_index :comments, :user_profile_id

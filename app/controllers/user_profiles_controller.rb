@@ -12,7 +12,6 @@ before_filter :'require_login'
   end
 
 
-
 def edit
   if profileAlreadyExists?
     @user_profile=   getProfile
@@ -51,8 +50,11 @@ end
 
 
 def show
+  @loggedUser=getProfile
   if UserProfile.find_by_userName(params[:id])
     @profile=UserProfile.find_by_userName(params[:id])
+  elsif(getProfile.nil?)
+    redirect_to action: 'new'
   else  @profile=getProfile
     flash[:errorMessage] = "Profile with id " +params[:id] + " Could not be found"
   end
@@ -100,17 +102,3 @@ def handleDirectoryMaking
   end
 end
 
-private
-
-def getProfile
-  if profileAlreadyExists?
-    return UserProfile.find_by_emailId(getEmail)
-    else nil
-    end
-end
-
-private
-
-def profileAlreadyExists?
-  return UserProfile.find_all_by_emailId(getEmail).length>0
-end

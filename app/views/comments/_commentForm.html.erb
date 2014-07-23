@@ -1,0 +1,9 @@
+<%= form_for([@profile, @profile.comments.build]) do |comment| %>
+    <p>
+      <%= comment.label :'Comment ' %><br>
+      <%= comment.text_area :'commentText' ,size:'20*10'%>
+    </p>
+    <p>
+      <%= comment.submit %>
+    </p>
+<% end %>

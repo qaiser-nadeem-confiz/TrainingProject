@@ -46,4 +46,27 @@ class ApplicationController < ActionController::Base
   def getUserName
     return session[:userName]
   end
+
+  protected
+
+  def getProfile
+    if profileAlreadyExists?
+      return UserProfile.find_by_emailId(getEmail)
+    else nil
+    end
+  end
+
+  protected
+
+  def profileAlreadyExists?
+    return UserProfile.find_all_by_emailId(getEmail).length>0
+  end
+
+  protected
+  def getProfileByUserName userName
+    if UserProfile.find_all_by_userName(userName).length>0
+      return UserProfile.find_by_userName(userName)
+      else return nil?
+    end
+  end
 end

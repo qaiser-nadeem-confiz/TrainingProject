@@ -7,14 +7,15 @@ SocialMesh::Application.routes.draw do
   post '/signup'=>'home#authorise'
   get '/login' =>'home#login'
   post '/login' =>'home#handleLogin'
+  get '/userProfiles/sendRequest/:id' => 'friend_request#sendRequest'
   #get '/user_profiles/:id' =>'user_profiles#edit'
 
-  resources :accounts do
-    resources :comments
-    resources :notifications
-  end
+  resources :accounts
   resources :friend_lists
-  resources :user_profiles
+  resources :user_profiles do
+resources :comments
+resources :notifications
+end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
