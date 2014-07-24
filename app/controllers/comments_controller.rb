@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
+  before_filter :'require_login'
   def new
 
   end

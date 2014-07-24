@@ -2,7 +2,8 @@ class HomeController < ApplicationController
   before_filter :require_login
   skip_before_filter :require_login, only: [:signUp ,:login,:authorise,:handleLogin]
   def index
-
+     @pendingProfiles=  getProfile.getPendingRequestsProfiles
+     @pendingRequests=@pendingProfiles.length
   end
 
   def signUp

@@ -31,6 +31,28 @@ def sendRequest
   redirect_to user_profile_path
 end
 
+
+def makeFriends
+  @friendFrom =getProfileByUserName [params[:id]]
+  @logedUser= getProfile
+ if @logedUser.acceptFriendRequest @friendFrom
+   flash[:message] = "Congratulations You and #{@friendFrom.firstName} are friends Now"
+   else flash[:errorMessage] ="Sorry Could not add you as friend"
+   end
+  redirect_to index
+end
+
+def rejectFriendRequest
+  @friendFrom =getProfileByUserName [params[:id]]
+  @logedUser= getProfile
+  if @logedUser.rejectFriendRequest @friendFrom
+    flash[:message] = "Friend Request Rejected"
+    else flash[:message] ="Request Could not be reject"
+    end
+  redirect_to index
+end
+
+
 def edit
   if profileAlreadyExists?
     @user_profile=   getProfile
@@ -44,6 +66,7 @@ def update
 if(@user_profile.update_attributes(params[:user_profile]))
   if(params[:file])
     @user_profile.update_attribute 'pictureUrl' ,@user_profile.getPictureUrl(params[:file])
+    @user_profile.savePhoto params[:file]
   end
   flash[:message] ="Profile Upated Successfully"
   redirect_to action: 'index' ,controller: 'user_profiles'

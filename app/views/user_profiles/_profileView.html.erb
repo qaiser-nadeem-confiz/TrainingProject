@@ -25,7 +25,7 @@
 
           <%=
               if @user_profile.pictureUrl
-              image_tag(@user_profile.pictureUrl,width: 100,height: 100)
+              image_tag(@user_profile.pictureUrl,width: 100,height: 100,:id => 'dp')
           end%>
 
 
@@ -88,7 +88,8 @@
 
         <td>
 
-          <%= file_field_tag('file',value:'Choose Photo',:accept =>"image/*") %>
+          <%= file_field_tag('file',value:'Choose Photo',:accept =>"image/*",:id=>'file')
+          %>
         </td>
       </tr>
 
@@ -97,4 +98,27 @@
       </tr>
     </table>
 
+
+
+<head> <script>
+    $("#file").change(function(){
+    changeDP(this);
+    });
+</script>
+
+</head>
+    <script type="text/javascript">
+        function changeDP(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#dp').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 <% end%>

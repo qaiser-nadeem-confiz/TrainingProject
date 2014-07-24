@@ -1,9 +1,11 @@
 module ApplicationHelper
 
 
+  def userHimself? from , to
+    return from==to
+  end
+
   def alreadyFriend? (from , to)
-
-
     @friends=FriendList.where("(userId="+to.to_s+" and friendsWithId = "+from.to_s + ") or (userId="+from.to_s+" and friendsWithId = "+to.to_s+")")
     if @friends.length>0
       return true
@@ -12,14 +14,10 @@ module ApplicationHelper
   end
 
   def requestAlreadySent? (from ,to)
-    @requests= FriendRequest.where("(requestTo = '"+to.userName+"' and requestFrom = '"+from.userName+"') or
-    (requestTo = '"+from.userName+"' and requestFrom = '"+to.userName+"')")
-    if(@requests.length>0)
-      return true
-    else return false
+    FriendRequest.requestAlreadySent? from , to
     end
 
-    
-
-  end
+   def currenttlyLoggedInUser? (profile)
+     return session[:userName]== profile.userName
+   end
 end

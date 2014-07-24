@@ -10,6 +10,10 @@ SocialMesh::Application.routes.draw do
   get '/login' =>'home#login'
   post '/login' =>'home#handleLogin'
 
+  get '/user_profiles/makeFriends/'
+  get '/user_profiles/rejectFriendRequest/:id' => 'user_profiles#rejectFriendRequest'
+  get '/user_profiles'=> 'user_profiles#index'
+  get'/friend_request/showPending'
   #get '/friend_request/:id' => 'friend_request#sendRequest'
   #get '/user_profiles/:id' =>'user_profiles#edit'
   resource :friend_request

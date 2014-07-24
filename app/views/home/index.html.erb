@@ -1,6 +1,14 @@
 <%= link_to "Edit Profile" ,action: 'new' , controller: 'user_profiles' %>
 <%= link_to "Find Friends" ,action: 'index' , controller: 'user_profiles' %>
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<%= link_to "Show Profile" ,user_profile_path(session[:userName]) %>
+<%= link_to "My Friends" ,controller: 'friend_lists',action: :index %>
+<%=
+    if(@pendingRequests >0 )
+      link_to "#{@pendingRequests} pending Request" ,friend_request_showPending_path
+      else ""
+      end
+%>
+<h1>Welcome to Social Mesh</h1>
+<p></p>
 <%= render 'messageView' %>
 <%= link_to "Logout",  action: :logout%>
