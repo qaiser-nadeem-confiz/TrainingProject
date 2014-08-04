@@ -1,12 +1,13 @@
-<%= link_to "Edit Profile" ,new_user_profile_path %>
-<%= link_to "Show Profile" ,user_profile_path(session[:userName]) %>
-<%= link_to "My Friends" ,controller: 'friend_lists',action: :index %>
+
+
+
+
 <%= render 'home/messageView' %>
 
 
 
 <% if(@profiles.length >0)  %>
-    <table>
+    <table class="table table-striped">
       <h1>Welcome To Profile View</h1>
       <col width="10">
       <col width="150">
@@ -30,18 +31,22 @@
                 if userHimself? @profile.id , profile.id
                ""
                elsif  alreadyFriend? @profile.id ,profile.id
-              link_to "Un Friend"  , friend_list_path(profile.userName) ,method: :delete,  data: { confirm: 'Are you sure?' }
+              link_to "Un Friend"  , friend_list_path(profile.userName) ,method: :delete,  data: { confirm: 'Are you sure?' } ,
+                      :class => 'btn btn-mini btn-danger'
             elsif @profile.requestedFriendship? profile
-              link_to "Accept Request " , controller: 'user_profiles' , action: 'makeFriends' , id:profile.userName
+              link_to "Accept Request " , makeFriend_path+"?id="+profile.userName,
+                      :class => 'btn btn-mini btn-primary'
             elsif requestAlreadySent? @profile , profile
               "Already Sent!"
             else
-              link_to "Send Friend Request " ,controller:'friend_request' , action: 'sendRequest' , id:profile.userName
+              link_to "Send Friend Request " ,sendRequest_path+"?id="+profile.userName,
+                      :class => 'btn btn-mini btn-primary'
             end
             %>   </td>
             <td>
               <%= if @profile.requestedFriendship? profile
-                  link_to "Reject Request" , controller: 'user_profiles' , action: :rejectFriendRequest , id:profile.userName
+                  link_to "Reject Request" , rejectRequest_path+"?id="+profile.userName ,:class => 'btn btn-mini btn-danger'
+
               end%>
 
             </td>

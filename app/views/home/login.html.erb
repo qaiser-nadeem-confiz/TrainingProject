@@ -5,6 +5,8 @@
 
     <%= account.label :Password %>:
     <%= account.text_field :password ,  :type => 'password' %><br />
-    <%= account.submit("Login") %>
+    <%= account.submit("Login" ,:class => 'btn btn')  %>
     <%= link_to "Sign Up" , action: :signUp%>
-<% end %>
+
+    <% end %>
+

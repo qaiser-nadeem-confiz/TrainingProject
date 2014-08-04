@@ -1,0 +1,86 @@
+<%= form_for @user_profile, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :emailId, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :emailId, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :userName, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :userName, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :firstName, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :firstName, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :secondName, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :secondName, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :address, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :education, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :education, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :accountType, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :accountType, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :phoneNumber, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :phoneNumber, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :dateOfBirth, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.date_select :dateOfBirth, :class => 'date_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :pictureUrl, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :pictureUrl, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :isActive, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :isActive, :class => 'check_box' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :dateOfJoining, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :dateOfJoining, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :aboutMe, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :aboutMe, :class => 'text_area' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                user_profiles_path, :class => 'btn' %>
+  </div>
+<% end %>

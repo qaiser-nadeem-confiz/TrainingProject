@@ -1,11 +1,5 @@
-<%=
- link_to "Edit Profile" ,new_user_profile_path
-        %>
-<%= link_to "My Friends" ,controller: 'friend_lists',action: :index %>
-<%= link_to "Find Friends" ,action: 'index' , controller: 'user_profiles' %>
+
 <%= render 'home/messageView' %>
-
-
 <table>
 <tr> <td>
 <h1><%=@profile.userName %></h1>

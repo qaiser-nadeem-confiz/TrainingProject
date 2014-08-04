@@ -20,4 +20,10 @@ module ApplicationHelper
    def currenttlyLoggedInUser? (profile)
      return session[:userName]== profile.userName
    end
+  def user_has_loged_in?
+    if session[:loged_in?]
+      return true
+    else return false
+    end
+  end
 end

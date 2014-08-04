@@ -70,7 +70,7 @@
         <%= profile.label :'Date of Birth' %>
       </td>
       <td>
-        <%=profile.date_select :dateOfBirth ,:start_year =>1900 , :end_year =>Date.current.year%>
+        <%=profile.date_select :dateOfBirth ,:start_year =>1900 , :end_year =>Date.current.year,:class=>'date_select'%>
     </tr><tr>
       <td>
         <%= profile.label :'About Me' %>
@@ -87,14 +87,17 @@
         </td>
 
         <td>
-
-          <%= file_field_tag('file',value:'Choose Photo',:accept =>"image/*",:id=>'file')
+<span class="btn btn-default btn-file">
+        <%= file_field_tag('file',value:'Choose Photo',:accept =>"image/*",:id=>'file')
           %>
+    </span>
         </td>
       </tr>
 
       <tr><td></td><td>
-        <%=profile.submit("Save Informations") %>
+        <div class="form-actions">
+        <%=profile.submit "Save Informations",:class => 'btn btn-primary' %>
+            </div>
       </tr>
     </table>
 

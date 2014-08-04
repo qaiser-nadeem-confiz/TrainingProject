@@ -46,7 +46,7 @@
        <% if deleteAuthorised? comment%>
         <%= link_to 'Delete Comment', [comment.user_profile, comment],
                     method: :delete,
-                    data: { confirm: 'Are you sure?' } %>
+                    data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger'%>
             <% end%>
       </p>
         </td>

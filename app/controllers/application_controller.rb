@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
 
-
   protected
   def findAccount (account)
     @accountByEmail = Account.find_all_by_emailId(account.userName)
@@ -31,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
   protected
   def user_has_loged_in?
-    if(session[:loged_in?])
+    if session[:loged_in?]
       return true
     else return false
     end

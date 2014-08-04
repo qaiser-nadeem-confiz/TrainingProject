@@ -1,21 +1,27 @@
 SocialMesh::Application.routes.draw do
 
 
+  get "user/create"
+
+  resources :posts
+
   get 'user_profiles/edit' => 'user_profiles#edit'
   get "home/index"
-  get "friend_request/sendRequest/"
-  get '/logout' =>'home#logout'
+  get "friend_request/sendRequest/" , as:'sendRequest'
+  get '/logout' =>'home#logout' , as: 'logout'
   get '/signup' =>'home#signUp'
   post '/signup'=>'home#authorise'
   get '/login' =>'home#login'
   post '/login' =>'home#handleLogin'
 
-  get '/user_profiles/makeFriends/'
-  get '/user_profiles/rejectFriendRequest/:id' => 'user_profiles#rejectFriendRequest'
+  get '/user_profiles/makeFriends/' ,as: 'makeFriend'
+  get '/user_profiles/rejectFriendRequest/' => 'user_profiles#rejectFriendRequest' , as: 'rejectRequest'
   get '/user_profiles'=> 'user_profiles#index'
   get'/friend_request/showPending'
+  get '/user_profiles/show'
   #get '/friend_request/:id' => 'friend_request#sendRequest'
   #get '/user_profiles/:id' =>'user_profiles#edit'
+
   resource :friend_request
   resources :accounts
   resources :friend_lists
@@ -73,7 +79,7 @@ end
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
    root :to => 'home#index'
-
+  match '/:anything', :to => "home#routing_error", :constraints => { :anything => /.*/ }
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

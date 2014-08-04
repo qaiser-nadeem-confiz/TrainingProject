@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140723084255) do
+ActiveRecord::Schema.define(:version => 20140804094619) do
 
   create_table "account_model_views", :force => true do |t|
     t.string   "userName"
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(:version => 20140723084255) do
   end
 
   add_index "notifications", ["user_profile_id"], :name => "index_notifications_on_user_profile_id"
+
+  create_table "posts", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "user_profiles", :force => true do |t|
     t.string   "emailId"

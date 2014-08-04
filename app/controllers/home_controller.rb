@@ -6,6 +6,12 @@ class HomeController < ApplicationController
      @pendingRequests=@pendingProfiles.length
   end
 
+
+  def routing_error
+    flash[:errorMessage] = "Invalid Url "+request.url
+    redirect_to home_index_path
+  end
+
   def signUp
     @account=Account.new
   end
