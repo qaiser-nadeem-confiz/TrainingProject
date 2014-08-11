@@ -2,22 +2,44 @@
 
 
 
-<%= render 'home/messageView' %>
-
-
-
-<% if(@profiles.length >0)  %>
-    <table class="table table-striped">
       <h1>Welcome To Profile View</h1>
+
+      <% @facets.each do |facet, facet_options| %>
+          <h5><%= facet %></h5>
+          <ul>
+            <% facet_options.each do |option, count| %>
+                <li><%= link_to "#{option} (#{count})",
+                                :params => {facet => option, :page => 1} %></li>
+            <% end %>
+          </ul>
+      <% end %>
+      <div id="mc_embed_signup">
+      <%=form_tag ""  , :method => :get ,:value=> "" do%>
+      <%=text_field_tag "q" ,"" ,:class => "email" , :placeholder=>"Search People"%>
+        <div class="clear">
+       <%= submit_tag "Search" ,:class => "button"%>
+        </div>
+      <%end%>
+      </div>
+      <% if(@profiles.length >0)  %>
+
+          <table class="table table-striped">
       <col width="10">
       <col width="150">
       <col width="270">
       <col width="80">
+      <col width="80" align="right" >
+      <col width="180">
+
       <tr>
         <th>Sr.#</th>
         <th>Name</th>
         <th>Email Id</th>
         <th>Joined Since</th>
+
+        <th>DP</th>
+        <th>Friendship</th>
+
       </tr>
       <% counter=0%>
       <% @profiles.each do |profile| %>
@@ -26,7 +48,7 @@
             <td><%= link_to profile.firstName+" "+ profile.secondName,user_profile_path(profile.userName) %></td>
             <td><%= profile.emailId %></td>
             <td><%= profile.dateOfJoining.to_date %></td>
-
+            <td><%=link_to image_tag( (raw profile.pictureUrl),width: 40,height: 40) ,profile.pictureUrl  if profile.pictureUrl.present?%></td>
             <td><%=
                 if userHimself? @profile.id , profile.id
                ""

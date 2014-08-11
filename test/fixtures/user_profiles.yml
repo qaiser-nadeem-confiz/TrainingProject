@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  emailId: MyString
-  userName: MyString
+first:
+  emailId: 2010@gmail.com
+  userName: qaisar
   firstName: MyString
   secondName: MyString
   address: MyString
@@ -15,9 +15,9 @@ one:
   dateOfJoining: 2014-07-21 15:23:57
   aboutMe: MyText
 
-two:
-  emailId: MyString
-  userName: MyString
+second:
+  emailId: sample2@gmail.com
+  userName: qaisar25
   firstName: MyString
   secondName: MyString
   address: MyString

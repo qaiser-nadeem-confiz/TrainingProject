@@ -1,12 +1,12 @@
 class FriendRequestController < ApplicationController
-before_filter :require_login
+before_filter :require_login,'profile_added?'
 
 def index
 
 end
 
   def sendRequest
-      @sender=getProfile
+      @sender=getCurrentUser
       @requestTo =getProfileByUserName params[:id]
       handleRequest @sender , @requestTo
      redirect_to controller: 'user_profiles' , action: 'index'
@@ -14,8 +14,8 @@ end
 
 
    def showPending
-     @profiles=getProfile.getPendingRequestsProfiles
-     @profile=getProfile
+     @profiles=getCurrentUser.getPendingRequestsProfiles
+     @profile=getCurrentUser
      render 'user_profiles/index'
    end
 

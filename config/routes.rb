@@ -7,11 +7,12 @@ SocialMesh::Application.routes.draw do
 
   get 'user_profiles/edit' => 'user_profiles#edit'
   get "home/index"
+  #get "user_profiles/searchProfile" => 'user_profiles#search'
   get "friend_request/sendRequest/" , as:'sendRequest'
   get '/logout' =>'home#logout' , as: 'logout'
-  get '/signup' =>'home#signUp'
+  get '/signup' =>'home#signUp',as: 'signup'
   post '/signup'=>'home#authorise'
-  get '/login' =>'home#login'
+  get '/login' =>'home#login' , as: 'login'
   post '/login' =>'home#handleLogin'
 
   get '/user_profiles/makeFriends/' ,as: 'makeFriend'

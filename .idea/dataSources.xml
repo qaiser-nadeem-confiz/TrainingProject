@@ -3,8 +3,16 @@
   <component name="DataSourceManagerImpl" format="xml" hash="3530946576">
     <data-source source="LOCAL" name="Rails SocialMesh: development" uuid="88cd5621-2e43-49e6-b0b0-6b366ba994d3">
       <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://127.0.0.1/db/development.mysql2</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfc9dfc5dfc4dfccdfc3dfd0df9bdf98df99</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails SocialMesh: test" uuid="345ada49-9335-482a-80ae-a1bd410362f9">
+      <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/development.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/test.sqlite3</jdbc-url>
       <libraries />
     </data-source>
   </component>

@@ -13,7 +13,7 @@
       <%= csrf_meta_tags %>
 
 
-
+    <link rel="shortcut icon" href="http://www.convoyofhope.org/wp-content/uploads/2013/12/gi-icon-hands-blue.png"/>
 
 
     <meta charset="utf-8">
@@ -53,7 +53,6 @@
   </head>
 
 <body>
-<%= bootstrap_flash %>
   <div class="navbar navbar-fluid-top">
     <div class="navbar-inner">
       <div class="container-fluid">
@@ -62,22 +61,37 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <%=link_to "Social Mesh" ,home_index_path, {class: 'brand'}%>
+         <%=link_to "Social Mesh" ,home_index_path, {class: 'brand'}%>
 
         <div class="container-fluid nav-collapse">
           <ul class="nav">
 
             <%= menu_divider %>
             <%if user_has_loged_in?%>
-            <li><%= link_to "Edit Profile" ,new_user_profile_path %></li>
-            <li><%= link_to "Show Profile" ,user_profile_path(session[:userName]) %></li>
             <li><%= link_to "My Friends" ,controller: 'friend_lists',action: :index %></li>
             <li>
               <%= link_to "Find Friends" ,user_profiles_path %></li>
-            <li>
-              <%= link_to "Logout",  logout_path%></li>
+
                 <%end%>
           </ul>
+
+
+
+
+          <p class="navbar-text pull-right">
+            <% if user_has_loged_in? %>
+                Logged in as <strong><%=link_to getEmail , user_profile_path(session[:userName]) %></strong>.
+                <%= link_to 'Edit profile', new_user_profile_path, :class => 'navbar-link' %> |
+                <%= link_to "Logout", logout_path%>
+                <%=link_to  image_tag(getCurrentUser.pictureUrl,:width =>30 , :height=>30) , getCurrentUser.pictureUrl if getCurrentUser and getCurrentUser.pictureUrl.present?%>
+            <% else %>
+                <%= link_to "Sign up", signup_path, :class => 'navbar-link'  %> |
+                <%= link_to "Login", login_path, :class => 'navbar-link'  %>
+            <% end %>
+
+
+
+
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -96,7 +110,14 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-          <%= bootstrap_flash %>
+
+          <% if flash[:message] %>
+              <p class="alert alert-success"><%= flash[:message] %></p>
+          <% end %>
+          <% if flash[:errorMessage] %>
+              <p class="alert alert-danger"><%= flash[:errorMessage] %></p>
+          <% end %>
+
           <%= yield %>
         </div>
       </div><!--/row-->

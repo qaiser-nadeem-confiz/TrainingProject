@@ -1,16 +1,28 @@
 class CommentsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
-  before_filter :'require_login'
+  before_filter :'require_login','profile_added?'
   def new
 
   end
   def create
- @CommentedBy=getProfile
+
+    @loggedUser=getCurrentUser
+    @profile=UserProfile.find(params[:user_profile_id])
+ @CommentedBy=getCurrentUser
  @CommentedOn =UserProfile.find(params[:user_profile_id])
  @comment= @CommentedOn.comments.new(params[:comment])
  @comment=initializeComment @comment, @CommentedBy
- @comment.save
-    redirect_to user_profile_path(@CommentedOn.userName)
+ respond_to do |format|
+   if @comment.save
+     format.html { redirect_to user_profile_path(@CommentedOn.userName)}
+     format.js   {render   :layout => false}
+     format.json { render json: @comment, status: :created, location: @comment }
+   else
+     format.html { render action: "new" }
+     format.js   {render :layout => false}
+     format.json { render json: @comment.errors, status: :unprocessable_entity }
+   end
+ end
   end
 
 
@@ -27,7 +39,7 @@ class CommentsController < ApplicationController
 
   private
   def deleteAuthorised? (userProfileForCommentDelete , comment)
-    @deletingPerson =getProfile
+    @deletingPerson =getCurrentUser
     if(@deletingPerson.id==userProfileForCommentDelete.id)
       return true
     elsif @deletingPerson.id==comment.commentedBy

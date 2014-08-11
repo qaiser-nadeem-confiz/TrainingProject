@@ -1,1 +1,4 @@
-$("<%= escape_javascript(render @comment) %>").appendTo("#comments");
+ $('#comments').append("<%=
+  escape_javascript(render :partial => 'comment2')
+  %> ");
+

@@ -5,7 +5,6 @@ class CreateFriendLists < ActiveRecord::Migration
       t.integer :friendsWithId
       t.boolean :requestAccepted
       t.date :dateOfFriendShip
-
       t.timestamps
     end
   end

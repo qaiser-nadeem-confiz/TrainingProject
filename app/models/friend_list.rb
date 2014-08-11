@@ -17,13 +17,20 @@ class FriendList < ActiveRecord::Base
   end
 
 
+  def self.getFriendsProfiles (userProfile)
+   @friends1 = FriendList.find_all_by_friendsWithId(userProfile.id).map { |x| x.userId}
+   @friends2=FriendList.find_all_by_userId(userProfile.id).map { |x| x.friendsWithId}
+    @FriendsProfiles=UserProfile.where("id in (?) or id in (?)" ,@friends1,@friends2)
+    return @FriendsProfiles
+  end
 
+=begin
   def self.getFriendsProfiles (userProfile)
   @allFriends= UserProfile.where("id in (SELECT userId FROM friend_lists WHERE (friendsWithId=#{userProfile.id}))
   or id in (SELECT friendsWithId FROM friend_lists WHERE (userId=#{userProfile.id}))")
   return @allFriends
   end
-
+=end
   private
   def self.findFriend (friend , friendWith)
   @friends=  FriendList.where("(friendsWithId= #{friendWith.id} and userId=#{friend.id}) or

@@ -1,59 +1,14 @@
-<%
 
-   def deleteAuthorised? (comment)
-     if(@loggedUser.id==@profile.id or @loggedUser.id==comment.commentedBy)
-       return true
-     els
-       return false
-     end
-   end
-%>
 
 <hr/>
-<table>
+<table id="comments">
 
-  <%@profile.comments.each do|comment| %>
-  <tr>
+  <%@comments.each do|comment| %>
+  <%= @comment =comment
+  render 'comments/comment2'
+  %>
 
-    <td>
-
-      <strong>
-        <%=
-
-            @commenter=  UserProfile.find(comment.commentedBy)
-
-        link_to  @commenter.firstName + " "+@commenter.secondName , user_profile_path(@commenter.userName)
-        %>
-      </strong>
-    </td>
-    <td>
-      <%= comment.commentTimeDate %>
-
-    </td>
-  </tr>
-  <tr>
-
-    <td colspan="2">
-      <p>
-    <%= comment.commentText %>
-      </p>
-    </td>
-  </tr>
-      <tr>
-        <td colspan="2">
-      <p>
-
-       <% if deleteAuthorised? comment%>
-        <%= link_to 'Delete Comment', [comment.user_profile, comment],
-                    method: :delete,
-                    data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger'%>
-            <% end%>
-      </p>
-        </td>
-
-      </tr>
-    <tr><Td colspan="4"><hr/></Td></tr>
-      <% end%>
+        <% end%>
 
 </table>
 

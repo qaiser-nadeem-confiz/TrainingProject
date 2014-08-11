@@ -2,10 +2,13 @@ class HomeController < ApplicationController
   before_filter :require_login
   skip_before_filter :require_login, only: [:signUp ,:login,:authorise,:handleLogin]
   def index
-     @pendingProfiles=  getProfile.getPendingRequestsProfiles
+    if getCurrentUser
+     @pendingProfiles=  getCurrentUser.getPendingRequestsProfiles
      @pendingRequests=@pendingProfiles.length
+    else @pendingRequests=0
+    @pendingProfiles=nil
+      end
   end
-
 
   def routing_error
     flash[:errorMessage] = "Invalid Url "+request.url
@@ -13,25 +16,23 @@ class HomeController < ApplicationController
   end
 
   def signUp
-    @account=Account.new
+    if user_has_loged_in?
+      flash[:errorMessage] = "You are logged in. first logout from this account"
+      redirect_to '/'
+      else  @account=Account.new
+    end
+
   end
   def authorise
    @account =Account.new(params[:account])
-   @valid =true
-   @account2=Account.where("emailId='"+@account.emailId+"' or userName='"+@account.userName+"'")
-   if(@account2.length>0)
-     flash.now[:errorMessage] = "User Name/Email Id Already Exists"
-     @valid=false
-   elsif(@account.password.to_s!=params[:temp][:password2])
-     flash.now[:errorMessage] = "Password does not match"
-     @valid=false
-   end
-     if @valid  and @account.save
+   result= @account.authorizeAccount params[:temp][:password2]
+     if result == true
        flash[:message]="Welcome To Social Mesh. You have been successfully signed Up :)"
        redirect_to :action => 'login' , :controller =>'home'
-     else
-
-       @account.valid?
+     elsif result ==false
+       render 'signUp'
+       else
+         flash[:errorMessage] = result
        render 'signUp'
      end
   end
@@ -50,22 +51,18 @@ class HomeController < ApplicationController
   end
 
   def handleLogin
-    @loginDetails =Account.new(params[:account])
-   @foundedAccount= findAccount(@loginDetails)
+   @loginDetails =Account.new(params[:account])
+   @foundedAccount= Account.findAccount(@loginDetails)
     if(@foundedAccount.nil?)
       flash.now[:errorMessage]="Account with this User name does not exists"
       render 'login'
     elsif authenticateUser(@loginDetails,@foundedAccount)
-      session[:loged_in?]=true
-      session[:emailId]=@foundedAccount.emailId
-      session[:userName]=@foundedAccount.userName
-      if session[:requestedUrl]
-        @url=session[:requestedUrl]
-        session[:requestedUrl]=nil
-        redirect_to @url
-     else
-      redirect_to user_profile_path(@foundedAccount.userName)
-        end
+      loginUser @foundedAccount
+         if redirectedFromAnotherPage?
+           redirectTotheRequestedUrl
+         else
+         redirect_to user_profile_path(@foundedAccount.userName)
+         end
     else
       flash.now[:errorMessage]="Incorrect Password try again"
       render 'login'
@@ -80,6 +77,24 @@ class HomeController < ApplicationController
   end
 
 
+  private
+  def loginUser account
+    session[:loged_in?]=true
+    session[:emailId]=account.emailId
+    session[:userName]=account.userName
+  end
+
+  private
+  def redirectedFromAnotherPage?
+    session[:requestedUrl]
+  end
+
+  private
+  def redirectTotheRequestedUrl
+    @url=session[:requestedUrl]
+    session[:requestedUrl]=nil
+    redirect_to @url
+  end
 
 
 end

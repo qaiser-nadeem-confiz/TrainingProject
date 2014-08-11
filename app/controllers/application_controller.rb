@@ -2,17 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
 
-  protected
-  def findAccount (account)
-    @accountByEmail = Account.find_all_by_emailId(account.userName)
-    @accountByUserName=Account.find_all_by_userName(account.userName)
-    if(@accountByEmail.length>0)
-      return @accountByEmail[0]
-    elsif(@accountByUserName.length>0)
-      return @accountByUserName[0]
-    else return nil
-    end
-  end
+
 
   protected
   def authenticateUser(loginDetails,foundedAccount)
@@ -28,12 +18,23 @@ class ApplicationController < ActionController::Base
       redirect_to :action => 'login' , :controller => 'home'
     end
   end
-  protected
+  public
   def user_has_loged_in?
     if session[:loged_in?]
       return true
     else return false
     end
+  end
+
+
+  protected
+  def set_error_message (message)
+    flash[:errorMessage] = message
+  end
+
+  protected
+  def set_notice (message)
+    flash[:message] =message
   end
 
   protected
@@ -47,8 +48,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  def getProfile
+  def getCurrentUser
     if profileAlreadyExists?
       return UserProfile.find_by_emailId(getEmail)
     else nil
@@ -66,6 +66,15 @@ class ApplicationController < ActionController::Base
     if UserProfile.find_all_by_userName(userName).length>0
       return UserProfile.find_by_userName(userName)
       else return nil?
+    end
+  end
+
+
+  protected
+  def profile_added?
+    if getCurrentUser.nil?
+      flash[:errorMessage] = "Kindly Add your profile informations first"
+      redirect_to action: 'new' , controller: 'user_profiles'
     end
   end
 end
